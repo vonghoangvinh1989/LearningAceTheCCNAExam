@@ -1,0 +1,92 @@
+1) The EXEC modes
+    Router> --> indicate we are in 'user EXEC mode'
+        Note:
+            + the least-privilegde mode in Cisco
+IOS command which allows enter some basics commmands to view information about the
+device's configuration and status
+            + does not allow to do anything intrusive like changing device's configuration,
+        restart device, etc
+
+
+    Router>show clock --> display the current time of device's clock
+    Router>enable --> access privileged exec mode
+
+2) The privilegde mode: give unlimited access to the available show command as well as
+many other commands to control various features of the device 
+    Router#reload --> reboot the device
+    Router#disable --> go back to user exec mode
+
+Note:
+    both user exec and privileged exec modes are limited that they do not allow to make
+changes to the devices' configuration
+
+3) Global configuration mode
+    Router#configure terminal --> enter global configuration mode (can type 'conf t' also work)
+
+    Router(config)# --> show that in configuration mode (config)
+    Router(config)#hostname R1 --> configure router hostname to 'R1'
+    Router(config)#no hostname R1 --> remove the command and revert the device's hostname
+to the default router
+
+    Router(config)#end --> go back to privileged from global mode
+
+    Note:
+        we can use command 'end' / 'exit' or Ctrl + C / Ctrl + Z also work
+        configuration mode such as global allow to configure the device, but
+exec mode command like 'show' do not work, solution here is add 'do' before intro
+
+    Router(config)#do show clock --> show clock in configuration mode
+
+4) Keyboard shortcuts
+    ctrl + a --> move to the beginning of line
+    ctrl + e --> move to the end of line
+    ctrl + u --> delete all to the left
+    ctrl + k --> delete all to the right
+
+5) Context-sensitive help
+    R1>? --> show list of available command in mode
+    R1>show ? --> show list of commands related to 'show'
+    R1>e? --> display possible completions
+
+6) IOS configuration files
+    a) Two files store device's configuration is running-config and startup-config
+    + running-config --> determine current operations of device, when we enter a configuration
+command in the cli, we are modifying 'running-configure' file, effect instantly,
+this file stored in RAM (so that mean it will be lost when reload or power-off)
+    
+    + startup-config --> to save configuration changes, do not determine the current
+operations of the device (loaded by device when boot-ups), after restarted content 
+of startup-config are copied to running-config (this file stored in special type of
+RAM call NVRAM, contents are kept even when device is powered off or restarted)
+
+    b) Commands to show content of these files
+        show running-config --> show content of running-config file 
+        show startup-config --> show content of startup-config file
+
+    c) Commands can be used to copy the contents of running-config file to 
+startup-config file (entered in privileged)
+        write
+        write memory
+        copy running-config startup-config --> recommend to use this command 
+
+    d) Commands to delete startup-config and 'reload' to reboot the device 
+        write erase
+        erase
+        erase startup-config --> recommend to use this command
+
+7) Configure the enable password
+    R1(config)# enable password ccna --> set password 'ccna' for privileged mode
+
+    R1#show running-config | include enable --> filter with 'include' and term to filter
+
+    R1(config)# service password-encryption --> encrypt all current passwords configured
+on the devices as well as configure in the future but the encryption is weak, use
+'enable secret' instead 
+
+8) Configure the enable secret
+    enable secret cisco --> configure an enable secret with password 'cisco', password
+will be hashed, recommmend this command
+
+    
+
+
