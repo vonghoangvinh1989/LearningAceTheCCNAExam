@@ -1,0 +1,11 @@
+1) To view mac address table (in user mode or privileged mode)
+    show mac address-table 
+
+2) To clear mac address table 
+    clear mac address-table dynamic --> clear all, after that table will be empty
+    clear mac address-table dynamic address <mac-address> --> delete a specific
+mac address in the table 
+
+    clear mac address-table dynamic interface <interface> --> delete mac addresses
+of interface instead of specify mac (such as G0/1, many devices can have the same
+interface in CAM table)
